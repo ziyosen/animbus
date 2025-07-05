@@ -4,7 +4,7 @@ import axios, {
 } from "axios";
 import type { Readable } from "node:stream";
 
-export const streamBlogger = (url: string, config: AxiosRequestConfig) => {
+export const streamBlogger = (url: string, config?: AxiosRequestConfig) => {
   const controller = new AbortController();
   let stream: Readable | undefined = undefined;
 
@@ -28,14 +28,14 @@ export const streamBlogger = (url: string, config: AxiosRequestConfig) => {
         ...config,
         responseType: "stream",
         signal: controller.signal,
-        headers: headers as AxiosResponseHeaders,
       })
-      .then(({ data }) => {
+      .then(({ data, headers }) => {
         stream = data;
 
         return {
           abort,
           stream: stream!,
+          headers: headers as AxiosResponseHeaders,
         };
       });
   });
