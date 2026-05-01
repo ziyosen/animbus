@@ -10,7 +10,7 @@ export type ServerResource = {
 };
 
 const client = axios.create({
-  baseURL: "https://samehadaku.now/",
+  baseURL: "https://v2.samehadaku.how/",
   headers: {
     "User-Agent": "Mozilla/5.0 (Windows NT)",
   },
